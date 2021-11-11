@@ -1,0 +1,32 @@
+adding a storage node
+write these codes in storage sevice
+1.to install the lvm pakages:
+yum install lvm2
+
+2.start the lvm metadata service and configuree it to start when the system boots:
+systemct1 enable lvm-lvmetad.service
+systemct1 start lvm2-lvmetad.service
+
+
+3.create a lvm physical volume:
+pvcreate /dev/sdb
+
+4.creating the cindervolume:
+
+pvcreate cinder-volumes /dev/sdb
+
+
+5.installl  cinder openstack services(components)
+ 
+ a)  yum install openstack-cinder targetcli python-keystone
+ 
+ b)in controller service 
+    sfpt storage
+ sftp> put /etc/cinder/cinder.conf /etc/cinder/cinder.conf
+ 
+ 
+ final installation
+6. start the block storage volume service including the dependencies and configure them to start when the system boots:
+
+systemct1 enable openstack-cinder-volume.service target.service
+systemct1 start openstack-cinder-volume.service target.service

@@ -1,0 +1,40 @@
+adding a compute node
+
+
+1. open 
+  vi answers.txt 
+2.  in that files search exclude and exclude the previously installed servers and add new compute node into "config compute hosts."
+
+after that
+
+3. we need to set ups trust btw the new servers and copy the ip address to the host file so that each nodes can address each other.
+
+ssh-copy-id -i /root/.ssh/id_rsa.pub_root@compute2
+
+
+4. run packstack --answer-file ~/answers.txt --timeout=3000
+
+5. we need to disable the firewall in the controller service.
+as the controler node cannot accept the connections.
+ 
+ service iptables stop
+ 
+6. for modification of local ip we need to:
+  vi /etc/neutron/plugins/m12/openvsswitch_agent.ini
+in that file change the local_ip 
+
+
+7. system1 restart neutron ovsdb server neutron-openvswitch-agent
+(after resarting the local ip adress gets stored)
+
+8. till now the compute node installed but now it should be registerd with the openstack
+openstack compute service list -- service nova-compute (in the controller node)
+
+
+9.to discover the compute node 
+su -s/bin/sh -c "nova-manage cell_v2 discover_hosts --verbose" nova
+ 
+ 
+ 
+
+ 

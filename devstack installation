@@ -1,0 +1,43 @@
+apt install git
+
+apt install open-vm-tools &&apt install open-vm-tools-desktop
+
+#creating stack user and allowing sudo access 
+
+useradd -s /bin/bash -d/opt/stack -m stack
+
+echo "stack ALL =(ALl) NOPASS: ALL" | sudo tee /etc/sudoers.d/stack
+
+su stack
+
+git clone https://gitg.openstack.org/openstack-dev/devstack
+
+cd devstack/
+
+cp samples/local.conf .
+
+nano local.conf
+{ 
+  set 
+  ADMIN_PASSWORD = admin
+  DATABASE_PASSWORD=$ADMIN_PASSWORD 
+  RABBIT_PASSWORD=$ADMIN_PASSWORD 
+  SERVICE_PASSWORD = $ADMIN_PASSWORD
+  
+  set our host ip address
+  change it from #HOST_IP=w.x.y to our ip address 
+   
+}
+
+stack installation
+ 
+./stack.sh
+
+
+after completion access the dashboard using
+
+https://xxx.xxx.xxx.xxx/dashboard
+
+
+
+

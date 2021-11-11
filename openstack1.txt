@@ -1,0 +1,16 @@
+preaparing 3 nodes for storage in swift and cinder.
+1.create virtual machines
+2.install base os
+3.update centos with yum-y update 
+4.set io of compute and network internal and check connectivity'
+5. systemct1 disable --now NetworkManager
+6. sudo yum -y remove NetworkManager-libnm NetworkManager-team NetworkManager-tui NetworkManager-wifi
+7. systemct1 disable --now firewall
+8. chkconfig NetworkManager off
+9. chkconfig firewalld off
+10. setenforce 0
+11. sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinum/config
+12. yum -y install vim wget net-tools curl telnet bash-completion libibverbs ntpdate crudini
+13. yum -y downgrade leatherman -y
+14. install repository 
+ yum install -y http://rdoproject.org/repos/rdo-release.rpm

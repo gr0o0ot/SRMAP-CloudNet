@@ -1,0 +1,23 @@
+preparing storage for cinder and swift 
+
+1. parted -s -a optimal -- /dev/sbd mklable gpt 
+2. parted -s -a optimal -- /dev/sbd mkpart primary 0% 70%
+3. parted -s -a optimal -- /dev/sbd mkpart primary 70% 100%
+4. pvcreate /dev/sbd1
+5. vgcreate cinder-volumes /dev/sdb1
+6. lvcreate -l 100%FREE -T cinder-volumes/cinder-volumes-pool
+7. sudo mkfs.xfs /dev/sbd2
+
+
+-------
+
+
+
+8. ntnpdate -u pool.ntp.org
+9. pack stcak on controller
+      yum -y install openstack-packstack
+      packstack --gen-answer-file /root/answers_base.txt
+10. ssh-keygen
+       ssh-copy-id -i /root/answers_base.txt
+11. packstack --answer-file ~/answers.txt --txt --timeout=30000
+
